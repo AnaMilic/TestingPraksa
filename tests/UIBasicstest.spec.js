@@ -65,7 +65,7 @@ test("Login Playwright test 1", async ({ browser }) => {
   await page.goto("https://www.saucedemo.com/inventory.html");
 });
 
-test.only("Login Playwright test 2", async ({ browser }) => {
+test("Login Playwright test 2", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto("https://www.saucedemo.com/");
@@ -90,4 +90,22 @@ test.only("Login Playwright test 2", async ({ browser }) => {
   console.log(
     await page.locator(".inventory_item_label a").last().textContent()
   );
+});
+
+test.only("Titles of all items Playwright test", async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto("https://www.saucedemo.com/");
+
+  const username = page.locator("#user-name");
+  const password = page.locator("[type='password']");
+  const loginButton = page.locator("#login-button");
+  const itemTitles = page.locator(".inventory_item_label a");
+
+  await username.fill("standard_user");
+  await password.fill("secret_sauce");
+  await loginButton.click();
+
+  const titles = await itemTitles.allTextContents();
+  console.log(titles);
 });
