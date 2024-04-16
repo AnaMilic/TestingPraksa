@@ -52,12 +52,13 @@ test("Login Playwright test", async ({ browser }) => {
 });
 
 test("Login Playwright test 1", async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
   const username = page.locator("#user-name");
   const password = page.locator("[type='password']");
   const loginButton = page.locator("#login-button");
 
-  const context = await browser.newContext();
-  const page = await context.newPage();
   await page.goto("https://www.saucedemo.com/");
   await username.fill("standard_user");
   await password.fill("secret_sauce");
@@ -92,7 +93,7 @@ test("Login Playwright test 2", async ({ browser }) => {
   );
 });
 
-test.only("Titles of all items Playwright test", async ({ browser }) => {
+test("Titles of all items Playwright test", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto("https://www.saucedemo.com/");
