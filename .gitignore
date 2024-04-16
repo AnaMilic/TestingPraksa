@@ -3,4 +3,6 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-/.github/workflows
+/package-lock.json
+/package.json
+/playwright.config.js
