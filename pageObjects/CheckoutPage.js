@@ -1,5 +1,7 @@
 const { expect } = require("@playwright/test");
-
+const firstName = "a";
+const lastName = "a";
+const zip = "11111";
 class CheckoutPage {
   constructor(page) {
     this.checkoutForm = page.locator(".checkout_info");
@@ -12,13 +14,13 @@ class CheckoutPage {
   async validateCheckoutPage() {
     await expect(this.checkoutForm).toBeVisible();
   }
-  async fillingFormWithInformation(firstName, lastName, zip) {
+  async fillingFormWithInformation() {
     await this.firstName.fill(firstName);
     await this.lastName.fill(lastName);
     await this.zip.fill(zip);
     await this.continueButton.click();
   }
-  async fillingFormWithInvalidInformation(firstName, lastName, zip) {
+  async fillingFormWithInvalidInformation() {
     await this.firstName.fill(firstName);
     await this.lastName.fill(lastName);
     await this.zip.fill(zip);

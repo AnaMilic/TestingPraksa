@@ -1,4 +1,6 @@
 const { expect } = require("@playwright/test");
+const user = "standard_user";
+const pass = "secret_sauce";
 class LoginPage {
   constructor(page) {
     this.page = page;
@@ -13,15 +15,14 @@ class LoginPage {
     await this.page.goto("https://www.saucedemo.com/");
   }
 
-  async validLogin(username, password) {
-    await this.username.fill(username);
-    await this.password.fill(password);
+  async validLogin() {
+    await this.username.fill(user);
+    await this.password.fill(pass);
     await this.loginButton.click();
   }
-
-  async invalidLogin(username, password) {
-    await this.username.fill(username);
-    await this.password.fill(password);
+  async invalidLogin() {
+    await this.username.fill(user);
+    await this.password.fill(pass);
     await this.loginButton.click();
     await expect(this.errorMessage).toBeVisible();
   }

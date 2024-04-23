@@ -16,20 +16,16 @@ test("Valid login", async ({ page }) => {
 
 test.only("Valid login using PMO", async ({ page }) => {
   const poManager = new POManager(page);
-  const username = "standard_user";
-  const password = "secret_sauce";
   const loginPage = poManager.getLoginPage();
   const homePage = poManager.getHomePage();
   await loginPage.goToLoginPage();
-  await loginPage.validLogin(username, password);
+  await loginPage.validLogin();
   await homePage.validateHomePage();
 });
 
-test("Login with invalid username", async ({ page }) => {
+test("Invalid login", async ({ page }) => {
   const poManager = new POManager(page);
-  const username = "aaa";
-  const password = "secret_sauce";
   const loginPage = poManager.getLoginPage();
   await loginPage.goToLoginPage();
-  await loginPage.invalidLogin(username, password);
+  await loginPage.invalidLogin();
 });

@@ -1,4 +1,7 @@
 const { expect } = require("@playwright/test");
+const label = "Sauce Labs Onesie";
+const addButton = "#add-to-cart-sauce-labs-onesie";
+const removeButton = "#remove-sauce-labs-onesie";
 class HomePage {
   constructor(page) {
     this.page = page;
@@ -16,19 +19,19 @@ class HomePage {
     await this.itemTitle.first().waitFor();
     await expect(this.itemTitle.first()).toContainText("Sauce Labs Backpack");
   }
-  async addItemToTheCart(itemLabel) {
-    await this.item.filter({ hasText: itemLabel }).getByRole("button").click();
+  async addItemToTheCart() {
+    await this.item.filter({ hasText: label }).getByRole("button").click();
   }
   async navigateToCart() {
     await this.cart.click();
   }
-  async visibleRemoveButton(removeBtn) {
-    await expect(this.page.locator(removeBtn)).toBeVisible();
+  async visibleRemoveButton() {
+    await expect(this.page.locator(removeButton)).toBeVisible();
   }
-  async removeItemFromTheCart(addBtn, removeBtn) {
-    await this.visibleRemoveButton(removeBtn);
-    await this.page.locator(removeBtn).click();
-    await expect(this.page.locator(addBtn)).toBeVisible();
+  async removeItemFromTheCart() {
+    await this.visibleRemoveButton(removeButton);
+    await this.page.locator(removeButton).click();
+    await expect(this.page.locator(addButton)).toBeVisible();
   }
   async logout() {
     await expect(this.burgerButton).toBeVisible();

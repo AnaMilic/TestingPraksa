@@ -1,4 +1,6 @@
 const { expect } = require("@playwright/test");
+const label = "Sauce Labs Onesie";
+const removeButton = "#remove-sauce-labs-onesie";
 class CartPage {
   constructor(page) {
     this.page = page;
@@ -7,12 +9,12 @@ class CartPage {
     this.checkoutBtn = page.getByRole("button", { name: "Checkout" });
   }
 
-  async validateCartPage(itemLabel) {
-    await expect(this.itemLabel).toContainText(itemLabel);
+  async validateCartPage() {
+    await expect(this.itemLabel).toContainText(label);
   }
-  async removeItemFromTheCart(removeBtn, itemLabel) {
-    await this.page.locator(removeBtn).click();
-    await expect(this.cartList).not.toContainText(itemLabel);
+  async removeItemFromTheCart() {
+    await this.page.locator(removeButton).click();
+    await expect(this.cartList).not.toContainText(label);
   }
   async checkout() {
     await expect(this.checkoutBtn).toBeVisible();
