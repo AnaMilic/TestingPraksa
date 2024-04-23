@@ -41,7 +41,7 @@ test("Remove item from the shopping cart test 1", async ({ page }) => {
   await homePage.removeItemFromTheCart(addBtn, removeBtn);
 });
 
-test.only("Remove item from the shopping cart test 2", async ({ page }) => {
+test("Remove item from the shopping cart test 2", async ({ page }) => {
   const poManager = new POManager(page);
   const itemLabel = "Sauce Labs Onesie";
   const removeBtn = "#remove-sauce-labs-onesie";
@@ -51,4 +51,49 @@ test.only("Remove item from the shopping cart test 2", async ({ page }) => {
   await homePage.navigateToCart();
   await cartPage.validateCartPage(itemLabel);
   await cartPage.removeItemFromTheCart(removeBtn, itemLabel);
+});
+
+test("Completing order", async ({ page }) => {
+  const poManager = new POManager(page);
+  const homePage = poManager.getHomePage();
+  const cartPage = poManager.getCartPage();
+  const checkoutPage = poManager.getCheckoutPage();
+  const checkoutOverviewPage = poManager.getCheckoutOverviewPage();
+  const checkoutCompletePage = poManager.getCheckoutCompletePage();
+  const itemLabel = "Sauce Labs Onesie";
+  const firstName = "a";
+  const lastName = "a";
+  const zip = "11111";
+  await homePage.addItemToTheCart(itemLabel);
+  await homePage.navigateToCart();
+  await cartPage.validateCartPage(itemLabel);
+  await cartPage.checkout();
+  await checkoutPage.validateCheckoutPage();
+  await checkoutPage.fillingFormWithInformation(firstName, lastName, zip);
+  await checkoutOverviewPage.validateCheckoutOverviewPage(itemLabel);
+  await checkoutOverviewPage.finishOrder();
+  await checkoutCompletePage.validateOrderCompleted();
+  await checkoutCompletePage.backToHomePage();
+  await homePage.validateHomePage();
+});
+
+test.only("Incomplete order", async ({ page }) => {
+  const poManager = new POManager(page);
+  const homePage = poManager.getHomePage();
+  const cartPage = poManager.getCartPage();
+  const checkoutPage = poManager.getCheckoutPage();
+  const itemLabel = "Sauce Labs Onesie";
+  const firstName = "a";
+  const lastName = "";
+  const zip = "11111";
+  await homePage.addItemToTheCart(itemLabel);
+  await homePage.navigateToCart();
+  await cartPage.validateCartPage(itemLabel);
+  await cartPage.checkout();
+  await checkoutPage.validateCheckoutPage();
+  await checkoutPage.fillingFormWithInvalidInformation(
+    firstName,
+    lastName,
+    zip
+  );
 });
