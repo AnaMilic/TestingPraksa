@@ -52,3 +52,18 @@ test("Remove item from the shopping cart test 2", async ({ page }) => {
   await cartPage.validateCartPage(itemLabel);
   await cartPage.removeItemFromTheCart(removeBtn, itemLabel);
 });
+
+test("Logout", async ({ page }) => {
+  const poManager = new POManager(page);
+  const homePage = poManager.getHomePage();
+  const loginPage = poManager.getLoginPage();
+  await homePage.logout();
+  await loginPage.validateLoginPage();
+});
+
+test.only("Go back from the About page", async ({ page }) => {
+  const poManager = new POManager(page);
+  const homePage = poManager.getHomePage();
+  await homePage.goBack();
+  await homePage.validateHomePage();
+});
