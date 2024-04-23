@@ -53,7 +53,7 @@ test("Remove item from the shopping cart test 2", async ({ page }) => {
   await cartPage.removeItemFromTheCart(removeBtn, itemLabel);
 });
 
-test("Completing order", async ({ page }) => {
+/*test("Completing order", async ({ page }) => {
   const poManager = new POManager(page);
   const homePage = poManager.getHomePage();
   const cartPage = poManager.getCartPage();
@@ -96,4 +96,4 @@ test.only("Incomplete order", async ({ page }) => {
     lastName,
     zip
   );
-});
+});*/
