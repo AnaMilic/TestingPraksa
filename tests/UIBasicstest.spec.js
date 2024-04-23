@@ -106,7 +106,9 @@ test("Titles of all items Playwright test", async ({ browser }) => {
   await username.fill("standard_user");
   await password.fill("secret_sauce");
   await loginButton.click();
-
+  await page.waitForLoadState("networkidle");
+  //await itemTitles.waitFor(); - another option but only works when locator returns single element
+  //await itemTitles.first().waitFor(); - ili npr last da bismo primanjivali na jednom elementu waitFor()
   const titles = await itemTitles.allTextContents();
   console.log(titles);
 });

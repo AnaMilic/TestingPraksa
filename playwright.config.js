@@ -32,6 +32,12 @@ module.exports = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     headless: false,
+    //screenshot - da slika svaku akciju koja se izvrsi, tj. svaki korak,
+    //trace - da dobijemo detaljan izvestaj za svaki korak automatski koji smo izvrsili
+    //trace:'retain-on-failure', - da se dobije izvestaj samo u slucaju za one testove koji padnu
+    //screenshot i trace off - ne slika se nista i ne kreiraju izvestaji
+    screenshot: "on",
+    trace: "on",
   },
   /* Configure projects for major browsers */
   projects: [
