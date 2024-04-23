@@ -1,6 +1,5 @@
 const { test, expect } = require("@playwright/test");
-const { LoginPage } = require("../pageObjects/LoginPage");
-const { HomePage } = require("../pageObjects/HomePage");
+const { POManager } = require("../pageObjects/POManager");
 
 test("Valid login", async ({ page }) => {
   await page.goto("https://www.saucedemo.com/");
@@ -15,20 +14,22 @@ test("Valid login", async ({ page }) => {
   await expect(itemTitle.first()).toContainText("Sauce Labs Backpack");
 });
 
-test("Valid login using PMO", async ({ page }) => {
+test.only("Valid login using PMO", async ({ page }) => {
+  const poManager = new POManager(page);
   const username = "standard_user";
   const password = "secret_sauce";
-  const loginPage = new LoginPage(page);
-  const homePage = new HomePage(page);
+  const loginPage = poManager.getLoginPage();
+  const homePage = poManager.getHomePage();
   await loginPage.goToLoginPage();
   await loginPage.validLogin(username, password);
   await homePage.validateHomePage();
 });
 
-test.only("Login with invalid username", async ({ page }) => {
+test("Login with invalid username", async ({ page }) => {
+  const poManager = new POManager(page);
   const username = "aaa";
   const password = "secret_sauce";
-  const loginPage = new LoginPage(page);
+  const loginPage = poManager.getLoginPage();
   await loginPage.goToLoginPage();
   await loginPage.invalidLogin(username, password);
 });

@@ -1,19 +1,20 @@
-const { test, expect } = require("@playwright/test");
-const { LoginPage } = require("../pageObjects/LoginPage");
-const { HomePage } = require("../pageObjects/HomePage");
+const { test } = require("@playwright/test");
+const { POManager } = require("../pageObjects/POManager");
 
 test.beforeEach("Login to the home page", async ({ page }) => {
+  const poManager = new POManager(page);
   const username = "standard_user";
   const password = "secret_sauce";
-  const loginPage = new LoginPage(page);
-  const homePage = new HomePage(page);
+  const loginPage = poManager.getLoginPage();
+  const homePage = poManager.getHomePage();
   await loginPage.goToLoginPage();
   await loginPage.validLogin(username, password);
   await homePage.validateHomePage();
 });
 
 test("Add item to the shopping cart test 1", async ({ page }) => {
-  const homePage = new HomePage(page);
+  const poManager = new POManager(page);
+  const homePage = poManager.getHomePage();
   const itemLabel = "Sauce Labs Onesie";
   const removeBtn = "#remove-sauce-labs-onesie";
   await homePage.addItemToTheCart(itemLabel);
@@ -21,28 +22,33 @@ test("Add item to the shopping cart test 1", async ({ page }) => {
 });
 
 test("Add item to the shopping cart test 2", async ({ page }) => {
+  const poManager = new POManager(page);
   const itemLabel = "Sauce Labs Onesie";
-  const homePage = new HomePage(page);
+  const homePage = poManager.getHomePage();
+  const cartPage = poManager.getCartPage();
   await homePage.addItemToTheCart(itemLabel);
-  await homePage.navigateToCart(itemLabel);
+  await homePage.navigateToCart();
+  await cartPage.validateCartPage(itemLabel);
 });
 
-test.only("Remove item from the shopping cart test 1", async ({ page }) => {
+test("Remove item from the shopping cart test 1", async ({ page }) => {
+  const poManager = new POManager(page);
   const itemLabel = "Sauce Labs Onesie";
   const addBtn = "#add-to-cart-sauce-labs-onesie";
   const removeBtn = "#remove-sauce-labs-onesie";
-  const homePage = new HomePage(page);
+  const homePage = poManager.getHomePage();
   await homePage.addItemToTheCart(itemLabel);
-  await homePage.removeItemFromTheList(addBtn, removeBtn);
+  await homePage.removeItemFromTheCart(addBtn, removeBtn);
 });
 
-test("Remove item from the shopping cart test 2", async ({ page }) => {
+test.only("Remove item from the shopping cart test 2", async ({ page }) => {
+  const poManager = new POManager(page);
   const itemLabel = "Sauce Labs Onesie";
   const removeBtn = "#remove-sauce-labs-onesie";
-  const homePage = new HomePage(page);
+  const homePage = poManager.getHomePage();
+  const cartPage = poManager.getCartPage();
   await homePage.addItemToTheCart(itemLabel);
-  await homePage.navigateToCart(itemLabel);
-  await homePage.removeItemFromTheCart(removeBtn, itemLabel);
+  await homePage.navigateToCart();
+  await cartPage.validateCartPage(itemLabel);
+  await cartPage.removeItemFromTheCart(removeBtn, itemLabel);
 });
-
-//napraviti za ceo flow - login, add, checkout - sve do kraja sto ima
