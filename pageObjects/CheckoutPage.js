@@ -7,7 +7,7 @@ class CheckoutPage {
     this.lastName = page.getByPlaceholder("Last Name");
     this.zip = page.getByPlaceholder("Zip/Postal Code");
     this.continueButton = page.getByRole("button", { name: "Continue" });
-    this.errorMessage = page.locator(".error-message-container");
+    this.errorMessage = page.getByText("Error");
   }
   async validateCheckoutPage() {
     await expect(this.checkoutForm).toBeVisible();
@@ -23,7 +23,7 @@ class CheckoutPage {
     await this.lastName.fill(lastName);
     await this.zip.fill(zip);
     await this.continueButton.click();
-    await expect(this.errorMessage).toContainText("Error");
+    await expect(this.errorMessage).toBeVisible();
   }
 }
 module.exports = { CheckoutPage };

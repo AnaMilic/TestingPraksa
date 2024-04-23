@@ -2,11 +2,11 @@ const { expect } = require("@playwright/test");
 
 class CheckoutCompletePage {
   constructor(page) {
-    this.completeText = page.locator("#checkout_complete_container");
+    this.completeText = page.getByText("Thank you for your order!");
     this.backButton = page.getByRole("button", { name: "Back Home" });
   }
   async validateOrderCompleted() {
-    await expect(this.completeText).toContainText("Thank you for your order!");
+    await expect(this.completeText).toBeVisible();
     await expect(this.backButton).toBeVisible();
   }
   async backToHomePage() {

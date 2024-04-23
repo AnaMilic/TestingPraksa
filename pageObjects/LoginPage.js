@@ -5,7 +5,7 @@ class LoginPage {
     this.username = page.getByPlaceholder("Username");
     this.password = page.getByPlaceholder("Password");
     this.loginButton = page.getByRole("button", { name: "Login" });
-    this.errorMessage = page.locator(".error-message-container");
+    this.errorMessage = page.getByText("Epic sadface");
     this.loginForm = page.locator(".login-box");
   }
 
@@ -23,7 +23,7 @@ class LoginPage {
     await this.username.fill(username);
     await this.password.fill(password);
     await this.loginButton.click();
-    await expect(this.errorMessage).toContainText("Epic sadface");
+    await expect(this.errorMessage).toBeVisible();
   }
 
   async validateLoginPage() {

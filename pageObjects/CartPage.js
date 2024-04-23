@@ -4,7 +4,7 @@ class CartPage {
     this.page = page;
     this.itemLabel = page.locator(".cart_item_label");
     this.cartList = page.locator(".cart_list");
-    this.checkoutBtn = page.locator("#checkout");
+    this.checkoutBtn = page.getByRole("button", { name: "Checkout" });
   }
 
   async validateCartPage(itemLabel) {
