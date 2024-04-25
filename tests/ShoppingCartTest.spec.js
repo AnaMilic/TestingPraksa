@@ -10,7 +10,7 @@ test.beforeEach("Login to the home page", async ({ page }) => {
   await homePage.validateHomePage();
 });
 
-test.only("Add item to the shopping cart test 1", async ({ page }) => {
+test("Add item to the shopping cart test 1", async ({ page }) => {
   const poManager = new POManager(page);
   const homePage = poManager.getHomePage();
   await homePage.addItemToTheCart();

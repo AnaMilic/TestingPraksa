@@ -17,7 +17,7 @@ test.beforeEach(
   }
 );
 
-test.only("Completing order", async ({ page }) => {
+test("Completing order", async ({ page }) => {
   const poManager = new POManager(page);
   const homePage = poManager.getHomePage();
   const cartPage = poManager.getCartPage();

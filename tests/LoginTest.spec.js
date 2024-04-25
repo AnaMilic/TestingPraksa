@@ -14,7 +14,7 @@ test("Valid login", async ({ page }) => {
   await expect(itemTitle.first()).toContainText("Sauce Labs Backpack");
 });
 
-test.only("Valid login using PMO", async ({ page }) => {
+test("Valid login using PMO", async ({ page }) => {
   const poManager = new POManager(page);
   const loginPage = poManager.getLoginPage();
   const homePage = poManager.getHomePage();
